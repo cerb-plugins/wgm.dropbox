@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.devblocks.com/schema/plugin.xsd">
+	<id>wgm.dropbox</id>
+	<name>Dropbox Integration</name>
+	<description>This plugin provides integration with Dropbox in Cerb bots.</description>
+	<author>Webgroup Media, LLC.</author>
+	<version>0.0.1</version>
+	<link>https://github.com/cerb-plugins/wgm.dropbox/</link>
+	<image>plugin.png</image>
+
+	<!-- Requirements -->
+
+	<requires>
+		<app_version min="8.3" max="8.3.99" />
+	</requires>
+
+	<!-- Plugin Dependencies -->
+	
+	<dependencies>
+		<require plugin_id="cerberusweb.core" version="8.3.0" />
+	</dependencies>
+	
+	<!-- Exported Classes -->
+	
+	<class_loader>
+		<file path="api/App.php">
+			<class name="WgmDropbox_API" />
+		</file>
+	</class_loader>
+
+	<!-- Extensions -->
+
+	<extensions>
+	
+		<!-- Service Provider -->
+		
+		<extension point="cerb.service.provider">
+			<id>wgm.dropbox.service.provider</id>
+			<name>Dropbox</name>
+			<class>
+				<file>api/App.php</file>
+				<name>ServiceProvider_Dropbox</name>
+			</class>
+			<params>
+				<param key="contexts">
+					<value>
+						<data key="cerberusweb.contexts.worker" />
+					</value>
+				</param>
+			</params>
+		</extension>
+		
+		<!-- Setup Page Menu Item -->
+		
+		<extension point="cerberusweb.ui.page.menu.item">
+			<id>wgmdropbox.setup.menu.plugins.dropbox</id>
+			<name>Dropbox</name>
+			<class>
+				<file>api/App.php</file>
+				<name>WgmDropbox_SetupPluginsMenuItem</name>
+			</class>
+			<params>
+				<param key="page_id" value="core.page.configuration" />
+				<param key="menu_id" value="core.setup.menu.services" />
+			</params>
+		</extension>
+		
+		<!-- Setup Page Sections -->
+		
+		<extension point="cerberusweb.ui.page.section">
+			<id>wgmdropbox.setup.dropbox</id>
+			<name>Setup Page Dropbox Section</name>
+			<class>
+				<file>api/App.php</file>
+				<name>WgmDropbox_SetupSection</name>
+			</class>
+			<params>
+				<param key="page_id" value="core.page.configuration" />
+				<param key="uri" value="dropbox" />
+			</params>
+		</extension>
+		
+		</extensions>
+</plugin>

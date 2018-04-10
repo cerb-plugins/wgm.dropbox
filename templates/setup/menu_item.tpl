@@ -1,0 +1,1 @@
+<a href="{devblocks_url}c=config&a=dropbox{/devblocks_url}">{'wgm.dropbox.common'|devblocks_translate}</a>
